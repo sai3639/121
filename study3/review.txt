@@ -1,0 +1,255 @@
+virtual functions -> class that inherits from a parent class and can ovveride a virtual functions
+    parent function also has definition of function
+    pure virutal class in parent class - parent doesn't have a definition   
+        child class is forced to implement that function
+
+constructor - initialize, sets the class up, take any data members that 
+are parts of that class and make sure they're assigned 
+    responsible for making sure everything is initialized - private members
+
+default constructor - constructor that has no parameters
+    str::string - calls default constructor and sets up with string
+
+paramerterized constructors
+    file streams - ifstream
+    constructor that has parameters that are passed in 
+
+mars rover - c string constructor - pass in c string used to create mystring
+
+copy constructor 
+    string str = "Hi";
+    string str2 = str; //even though equal sign - not assignment 
+    //calls copy constructor 
+    string str2(str);
+    -whatever the class is, the parameter being passed in is another item 
+    of the same class
+    -constructor for the class that's parameter is another object of 
+    the same class 
+
+writing copy constructor, copy assignment, and desctructor 
+    means there's dynamic memory (resource) in the classes 
+
+put things on the heap = rule of three 
+
+destructor gets automatically called when variables go out of scope
+built in destructor does nothing - have dynamic memory = memory leak
+
+copy construcotr and copy assignment = copy values from one class to the other
+    two linkless objects pointing to the same head 
+    don't know about each other -> can mess things up
+
+    int i = 7;
+    int k = i;
+    i++;
+    - k should have 7 not 8 -> same value to start with though 
+        "shallow copy" 
+
+when we have dynamic memory:
+    write a desctructor that will delete all the memory 
+    - mars rover = delete array and set pointer to NULL
+
+- linked lists are more complicated -> have to delete each node as you go
+- copy constructor - create new memory and copy values over 
+- linked list - have to traverse through list and create new node
+
+-copy assignment - almost the same as copy constructor  
+    -list has pre-exisiting memory
+    -prevent memory leak by deleteing old memory
+    - create new memory then copy 
+    - delete old memory, create new memory, copy
+    - make sure variables like size are correct 
+    - self-assignment check 
+        -thing being passed in and thing = same object?
+        -if memory address is same 
+        -if this isnt equal to &of that 
+
+    str = str
+    -fine except when memory is deleted 
+
+
+- recursive algorithm - an algorithm that breaks the problem into smaller
+subproblems and applies the same algorithm to solve the smaller 
+subproblems 
+    - base case - describes how to actually do something
+- recursion - method of solving a computational problem where the 
+solution depends on solutions to smaller instances of the same problem
+- recursive function - a function that calls itself
+- recursive case - part where the function calls on itself 
+
+- Dynamic Memory - refers to performing memory allocation manually by a 
+programmer
+    - memory allocated on heap 
+
+-classes
+    - object oriented programming - style of how to write your code 
+    - classes - way to group data/functionality together
+    - variables made from class types = objects
+    - new object variable = instance 
+    - by default class makes everything private 
+    - functions inside classes = methods
+    
+    EX 
+    class Player
+    {
+        public:
+            int x, y;
+            int speed;
+
+            void Move(int xa, int ya)
+            {
+                x += xa * speed;
+                y += ya * speed;
+            }
+
+    };
+
+    int main()
+    {
+        //instantiated player object
+        Player player; //Player with type player
+        player.x = 5; //instantiate variable
+        player.Move(1, -1);
+    }
+
+- overloading - more than once function of the same name in the same scope
+
+
+
+- encapsulation - make sure that "sensitive" data is hidden from uses
+    - declare class variables/attributes as private 
+    - if you want to read/modify the value of a private member use 
+    get/set methods
+- getter function - used to retrieve the variable value 
+- setter function - used to set the variable value
+
+EX
+class Employee 
+{
+    private:
+        int salary;
+    public:
+        //setter
+        void setSalary(int s)
+        {
+            salary = s;
+        }
+        //getter
+        int getSalary()
+        {
+            return salary;
+        }
+};
+
+- protected member variable - similar to private member but it provided
+one additional benefit that they can be acessed in child classes (derived
+classes)
+
+- friend function - premitted full access to private and protected members
+of a class
+- this pointer - every object has a special pointer THIS which points to 
+the object itself
+
+- Inheritance
+    - allows to define a class in terms of another class 
+    - provides opportunity to reuse the code functionality 
+    - existing class = base class
+    - derived class = new class
+    - the new class should inherit the members of an exisiting class
+    - allows hiearchy of classes that relate to each other
+    - class with subclasses
+    - helps avoid code duplication
+    
+    EX
+    mammal IS-A animal
+    dog IS-A mammal
+    dog IS-A animal
+
+
+CLASS VS STRUCTS 
+- class is private by default
+- struct default is public 
+- usually use struct for just variables 
+    - can still use methods but usually just manipulate variables in the struct
+    - don't use inheritance with struct - use class
+        - adds level of complexity 
+    
+VIRTUAL FUNCTIONS
+- allow to override methods in subclasses
+    - can make it do something else
+- dynamic dispatch, v-table
+
+EX
+class ENtity
+{
+    public:
+        virtual std::string GetName() {return "Entity";}
+
+};
+
+class Player : public ENtity{
+    private:
+     std::string m_Name;
+    public:
+        Player(const std::string& name)
+            : m_Name(name){}
+            std::string GetName(){return m_Name;}
+
+};
+
+THIS keyword
+- "this" - only accesible through a method
+- pointer to current object instance 
+
+EX
+class Entity
+{
+    public:
+        int x, y;
+
+        Entity(int x, int y)
+        {
+            Entity* e = this;
+            e->x = x'
+            // or
+            this->x = x;
+            this-y = y;
+        }
+};
+
+UML
+- aggregation - process in which one class defines another class as any
+entity reference 
+- composition - interconnection between classes 
+- UML - language for software design that uses different types of diagrams
+to visualize the structure and behavior of programs
+    - structural diagram - visualizes static elements of software like
+    variables and functions
+    - behavioral diagram - visualizes dynamic behavior of software like
+    flow of an algorithm 
+    - Uses an arrow with a solid line and unfilled arrow head to indicate
+    that one class inherits from another - arrow points toward parent class
+    - uses italics to denote abstract classes 
+
+- polymorphism - refers to determining whcih program behavior to execute
+depending on data types 
+    - compile-time - when compiler determines whcih function to call at 
+    comple-time
+    - runtime - when compiler is unable to determine which function to 
+    call at compile-time so determination is made while the program is 
+    running
+- pure virtual function - virtual function that provides no definiton in
+the base class
+- abstract class - class that guides the design of subclasses but cannot
+itself be instantiated as an object 
+
+HAS-A 
+- instance of one class has a reference to an instance of another class
+or an instance of the same class
+
+bus HAS-AN engine
+cow HAS-A tail
+
+- shallow copy - copy of originial object is stored and only the reference
+address is finally copied 
+- deep copy - copy of the original object and the repetitive copies both
+are stored 
